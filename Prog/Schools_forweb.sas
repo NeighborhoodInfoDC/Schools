@@ -6,7 +6,7 @@
  Created:  11/16/2017
  Version:  SAS 9.4
  Environment:  Windows
- Modifications: 
+ Modifications: 3/16/18 LH added cluster 17 and through 2014
 
 **************************************************************************/
 
@@ -23,7 +23,7 @@
 %let outfolder = schools; /* Name of folder where output CSV will be saved */
 %let sumdata = msf_sum; /* Summary dataset name (without geo suffix) */
 %let start = 2001; /* Start year */
-%let end = 2013; /* End year */
+%let end = 2014; /* End year */
 %let keepvars = school_present charter_present dcps_present aud aud_charter aud_dcps; /* Summary variables to keep and transpose */
 
 
@@ -61,18 +61,18 @@ run;
 proc contents data = &sumdata._&geo._long_allyr out = &sumdata._&geo._metadata noprint;
 run;
 
-/* Output the metadata */
+/* Output the metadata 
 ods csv file ="&_dcdata_default_path.\web\output\&outfolder.\&outfolder._&geo._metadata..csv";
 	proc print data =&sumdata._&geo._metadata noobs;
 	run;
-ods csv close;
+ods csv close;*/
 
 
-/* Output the CSV */
+/* Output the CSV 
 ods csv file ="&_dcdata_default_path.\web\output\&outfolder.\&outfolder._&geo..csv";
 	proc print data =&sumdata._&geo._long_allyr noobs;
 	run;
-ods csv close
+ods csv close*/
 
 
 %mend csv_create;
@@ -84,4 +84,5 @@ ods csv close
 %csv_create (city);
 %csv_create (psa12);
 %csv_create (zip);
+%csv_create (cl17);
 
