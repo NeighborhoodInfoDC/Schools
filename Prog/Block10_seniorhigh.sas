@@ -40,7 +40,12 @@ data Block10_seniorhigh
     Geo2010 = 'Full census tract ID (2010): ssccctttttt';
 
   ** seniorhigh code **;
-  %Octo_seniorhigh()
+
+
+    Gis_id = seniorhigh;
+
+  label
+    seniorhigh = "Senior High School Attendance Zone";
   
   label 
     Gis_id = "OCTO seniorhigh ID"
