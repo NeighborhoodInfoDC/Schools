@@ -17,8 +17,10 @@ Senior High School Attendance Zone (seniorhigh) correspondence file.
 
 ** Define libraries **;
 
+%DCData_lib( Schools )
+
 libname Cen2010m "&_dcdata_path\Schools\Maps\Census 2010";
-libname Schools "&_dcdata_path\Schools\Data";
+
 
 *options obs=50;
 
