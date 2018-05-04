@@ -17,6 +17,7 @@
 
 ** Define libraries **;
 %DCData_lib( Schools )
+%DCData_lib( Census )
 
 %Calc_weights_from_blocks( 
   geo1 = Geo2010,

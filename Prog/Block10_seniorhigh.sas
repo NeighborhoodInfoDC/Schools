@@ -18,6 +18,7 @@ Senior High School Attendance Zone (seniorhigh) correspondence file.
 ** Define libraries **;
 
 libname Cen2010m "&_dcdata_path\Schools\Maps\Census 2010";
+libname Schools "&_dcdata_path\Schools\Data";
 
 *options obs=50;
 
@@ -85,7 +86,7 @@ run;
   FmtName=$bk1seniorhigh,
   Data=Block10_seniorhigh,
   Value=GeoBlk2010,
-  Label=Senior High School,
+  Label="Senior High School",
   OtherLabel="",
   Desc="Block 2010 to Senior High School corresp",
   Print=N,
