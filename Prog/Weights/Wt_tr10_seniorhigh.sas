@@ -22,9 +22,8 @@
   geo1 = Geo2010,
   geo2 = seniorhigh,
   geo2check=n,
-  geo2suf=_hs
+  geo2suf=_hs,
   geo2name=seniorhigh,
-  geodlbl= Senior High School Attendance Zone,
   out_ds = Wt_tr10_seniorhigh,
   finalize=n,
   outlib=Schools,
