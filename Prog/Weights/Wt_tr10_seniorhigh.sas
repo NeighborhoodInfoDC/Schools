@@ -1,6 +1,5 @@
 /************************************************************************
-  Program:  Wt_tr10_stantoncommons.sas
-  Library:  General
+  Program:  Wt_tr10_seniorhigh
   Project:  ODCA School enrollment projection
   Author:   Yipeng Su
   Created:  5/3/2018
@@ -24,8 +23,8 @@
   geo2 = seniorhigh,
   geo2check=n,
   geo2suf=_hs
-  geo2name=seniorhigh
-  geodlbl= Senior High School Attendance Zone
+  geo2name=seniorhigh,
+  geodlbl= Senior High School Attendance Zone,
   out_ds = Wt_tr10_seniorhigh,
   finalize=n,
   outlib=Schools,
