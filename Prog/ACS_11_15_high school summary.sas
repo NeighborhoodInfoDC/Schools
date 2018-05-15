@@ -29,12 +29,14 @@ wgt_org_geo=Geo2010,
 wgt_new_geo=seniorhigh,
 wgt_id_vars=,
 wgt_wgt_var=PopWt,
-out_ds_name=Schools.ACS_2011_15_seniorhigh,
+out_ds_name=ACS_2011_15_seniorhigh,
 out_ds_label=%str(ACS_2011_2015 Population and education attainment from tract 2010 to senior high school boundaries),
 calc_vars=
- pctcollege = 100 *  mpop25andoverwcollege_2011_15/ totpop_2011_15;
+ pctcollege = 100 *  pop25andoverwcollege_2011_15/ totpop_2011_15;
 ,
 calc_vars_labels=
  pctcollege = "Percent with college degree or higher"
 
 )
+
+

@@ -18,28 +18,24 @@ Program:  Senior High School demand factor summaries.sas
 %DCData_lib( Police )
 %DCData_lib( Schools )
 
-
-** Define time periods  **;
-%let _years = 2011_15;
-%let year_lbl = 2011-15;
-
 %Transform_geo_data(
-keep_nonmatch=Y,
+keep_nonmatch=n,
 dat_ds_name=Police.Crimes_sum_tr10 ,
 dat_org_geo=geo2010,
-dat_count_vars=crimes_pt1_violent_2016 crime_rate_pop_2016,
+dat_count_vars=crimes_pt1_violent_: crime_rate_pop_:,
 dat_prop_vars=,
 wgt_ds_name=Schools.Wt_tr10_seniorhigh,
 wgt_org_geo=Geo2010,
 wgt_new_geo=seniorhigh,
 wgt_id_vars=,
 wgt_wgt_var=PopWt,
-out_ds_name=Schools.Crime_tract2010_to_seniorhigh,
+out_ds_name=Crime_tract2010_to_seniorhigh,
 out_ds_label=%str(Violent Crime from tract 2010 to senior high school boundaries),
 calc_vars=
- pctviolent = 100 *  crimes_pt1_violent_2016/ crime_rate_pop_2016;
+ pctviolent_2016 = 100 *  crimes_pt1_violent_2016/ crime_rate_pop_2016;
 ,
 calc_vars_labels=
- pctviolent = "Percent violent crime"
+ pctviolent_2016 = "Violent crime per 100 population"
 
 )
+

@@ -53,8 +53,8 @@ proc freq data = seniorhigh_map_join;
 	tables OBJECTID;
 run;
 
-proc export data=DCRA.Building_Permits_in_2017  (where=(Cluster2000="Cluster 6"))
-   outfile='D:\Users\ysu\Desktop\geocode\realprop'
+proc export data=DCRA.Building_Permits_in_2017
+   outfile='L:\Libraries\Schools\Raw\ODCA demand factor\buildingpermits.csv'
    dbms=csv
    replace;
 run;

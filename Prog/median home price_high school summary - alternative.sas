@@ -52,7 +52,7 @@ output out=medianhomesale_seniorhigh;
 run;
 
 proc export data=medianhomesale_seniorhigh
-   outfile='L:\Libraries\Schools\Data\ODCA demand factor\medianhomesale.csv'
+   outfile='L:\Libraries\Schools\Raw\ODCA demand factor\medianhomesale.csv'
    dbms=csv
    replace;
 run;
