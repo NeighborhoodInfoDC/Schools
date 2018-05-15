@@ -19,7 +19,7 @@
 %DCData_lib (DCRA)
 
 proc mapimport out=seniorhigh_map
-  datafile="D:\DCData\Libraries\Schools\Maps\CURRENT\School_Attendance_Zones_Senior_High.shp";  
+  datafile="L:\Libraries\Schools\Maps\CURRENT\School_Attendance_Zones_Senior_High.shp";  
 run;
 
 proc sort data=seniorhigh_map; by OBJECTID;
@@ -36,12 +36,10 @@ proc gproject
 run;
 */
 data newconstruction;
-set DCRA.Building_Permits_in_2017 ;
-if (PERMIT_SUBTYPE_NAME=NEW BUILDING) and (PERMIT_TYP=CONSTRUCTION);
-rename LATITUDE=x_coordinate;
-rename LONGITUDE=y_coordinate;
+set DCRA.Building_Permits_in_2017 (drop=objectid);
+rename LATITUDE=y;
+rename LONGITUDE=x;
 run;
-
 
 proc ginside includeborder
   data=work.newconstruction
