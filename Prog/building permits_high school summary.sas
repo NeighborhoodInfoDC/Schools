@@ -37,6 +37,7 @@ run;
 */
 data newconstruction;
 set DCRA.Building_Permits_in_2017 (drop=objectid);
+if (PERMIT_SUB="NEW BUILDING") and (PERMIT_TYP="CONSTRUCTION");
 rename LATITUDE=y;
 rename LONGITUDE=x;
 run;
