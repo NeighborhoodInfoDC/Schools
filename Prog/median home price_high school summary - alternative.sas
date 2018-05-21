@@ -23,7 +23,7 @@ run;
 
 data crosswalk;
 set crosswalk(rename=(geoblk2010=geoblk2010num));
-geoblk2010 = put(geoblk2010num, 7.);
+geoblk2010 = put(geoblk2010num, 15.);
 drop DOBnum;
 run;
 
@@ -37,11 +37,11 @@ proc sort data = Realprop.Sales_res_clean;
 by geoblk2010;
 run;
 */
-proc sort data=Realprop.Sales_res_clean;
+proc sort data=Realprop.Sales_res_clean out=Sales_res_clean;
 by geoblk2010;
 run;
 data combined;
-merge Realprop.Sales_res_clean crosswalk;
+merge Sales_res_clean crosswalk;
 by geoblk2010;
 run;
 
