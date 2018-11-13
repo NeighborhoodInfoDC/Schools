@@ -25,7 +25,7 @@
   geo2suf=_hs,
   geo2name=seniorhigh,
   out_ds = Wt_tr10_seniorhigh,
-  finalize=n,
+  finalize=y,
   outlib=Schools,
   revisions=New File.,
   block_corr_ds = Schools.Block10_seniorhigh,
