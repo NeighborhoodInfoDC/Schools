@@ -17,26 +17,18 @@
 %DCData_lib( Mar)
 %DCData_lib (Realprop)
 
-proc import datafile="L:\Libraries\Schools\Raw\block_high_school_crosswalk.csv" out=work.crosswalk
-dbms=csv replace;
-run;
+libname raw 'L:\Libraries\Schools\Raw';
 
 data crosswalk;
-set crosswalk(rename=(geoblk2010=geoblk2010num));
+set raw.block_high_school_crosswalk(rename=(geoblk2010=geoblk2010num));
 geoblk2010 = put(geoblk2010num, 15.);
-drop DOBnum;
+drop geoblk2010num;
 run;
 
 proc sort data=crosswalk;
 by geoblk2010;
 run;
 
-
-/*
-proc sort data = Realprop.Sales_res_clean;
-by geoblk2010;
-run;
-*/
 proc sort data=Realprop.Sales_res_clean out=Sales_res_clean;
 by geoblk2010;
 run;
@@ -46,7 +38,7 @@ by geoblk2010;
 run;
 
 proc means median data = combined; 
-by seniorhigh;
+class seniorhigh;
 var saleprice;
 output out=medianhomesale_seniorhigh;
 run;
