@@ -7,14 +7,14 @@
  Version:  SAS 9.2
  Environment:  Windows with SAS/Connect
  Description: Merges data
- Modifications:
+ Modifications: 12/27/18 by Yipeng Su
 **************************************************************************/
 
 %include "L:\SAS\Inc\StdLocal.sas";
 /*%include "K:\Metro\PTatian\DCData\SAS\Inc\AlphaSignon.sas" /nosource2;*/
 /*filename uiautos "K:\Metro\PTatian\UISUG\Uiautos";
 options sasautos=(uiautos sasautos) compress=binary ;*/
-libname enroll "K:\Metro\PTatian\DCData\Libraries\Schools\Data\Enrollment";
+libname enroll "D:\DCData\Libraries\Schools\Data\Enrollment";
 
 options nofmterr;
 
@@ -101,24 +101,27 @@ options nofmterr;
 %school_transpose(enroll12_13,12,13);
 %school_transpose(enroll13_14,13,14);
 %school_transpose(enroll14_15,14,15);
+%school_transpose(enroll15_16,15,16);
+%school_transpose(enroll16_17,16,17);
+%school_transpose(enroll17_18,17,18);
 
-data allenrollment_1415;
+data allenrollment_1718;
 merge enroll.allenrollment (drop=SchoolType) enroll.enrollment_1011_tr enroll.enrollment_1112_tr
-	enroll.enrollment_1213_tr enroll.enrollment_1314_tr enroll.enrollment_1415_tr;;
+	enroll.enrollment_1213_tr enroll.enrollment_1314_tr enroll.enrollment_1415_tr enroll.enrollment_1516_tr enroll.enrollment_1617_tr enroll.enrollment_1718_tr;;
 by UI_ID grade;
 run;
 
-proc sort data = allenrollment_1415; by UI_ID; run;
+proc sort data = allenrollment_1718; by UI_ID; run;
 
 proc sort data = checkmaster; by UI_ID; run;
 
-data allenrollment_1415_2;
-	merge allenrollment_1415 checkmaster;
+data allenrollment_1718_2;
+	merge allenrollment_1718 checkmaster;
 	by UI_ID;
 run;
 
-data enroll.allenrollment_1415;
-	set allenrollment_1415_2;
+data enroll.allenrollment_1718;
+	set allenrollment_1718_2;
 	where substr(UI_ID,1,1) in ("1","2","3");
 	if SchoolType not in ("1","2") then SchoolType = substr(UI_ID,1,1);
 run;
@@ -130,3 +133,6 @@ run;
 %File_info(data=enroll.enrollment_1213_tr);
 %File_info(data=enroll.enrollment_1314_tr);
 %File_info(data=enroll.enrollment_1415_tr);
+%File_info(data=enroll.enrollment_1516_tr);
+%File_info(data=enroll.enrollment_1617_tr);
+%File_info(data=enroll.enrollment_1718_tr);
