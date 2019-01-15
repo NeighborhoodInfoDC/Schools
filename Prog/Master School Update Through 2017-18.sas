@@ -54,6 +54,9 @@ data schools_15_18;
 
 	aud = total;
 
+	ui_id_c = put(ui_id,z7.);
+	drop ui_id;
+
 	rename School_Name = master_school_name;
 
 run;
@@ -98,6 +101,7 @@ data schools_15_18_geo;
 	set schools_15_18_join;
 
 	geoblk2010 = geoid10;
+	ui_id = ui_id_c;
 
 	%Block10_to_anc12;
 	%Block10_to_bpk;
@@ -115,3 +119,11 @@ data schools_15_18_geo;
 run;
 
 
+/* Combine old and new data together */
+data schools_00_18_combined;
+	set Schools_00_14_geo schools_15_18_geo;
+run;
+
+proc sort data = schools_00_18_combined;
+	by ui_id year;
+run;
