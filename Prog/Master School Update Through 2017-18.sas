@@ -32,67 +32,81 @@ run;
 /* Use geographic data from 2015/16 file as key for 16/17 and 17/18 */
 data school_locations;
 	set enroll.Enroll_15_16;
-	keep ui_id x y ;
+	ui_id_n = ui_id;
+	keep ui_id_n x y ;
 run;
 
-proc sort data = school_locations; by ui_id; run;
+proc sort data = school_locations; by ui_id_n; run;
+
+
+/* List closed schools as of 2014 school year */
+data closed_schools;
+	set Schools_00_14;
+	if year = 2014;
+	if school_name = "CLOSED";
+	status = "CLOSED";
+	ui_id_n = ui_id+0;
+	keep ui_id_n master_school_name dcps status;
+run;
+
+proc sort data = closed_schools; by ui_id_n; run;
 
 
 /*Use Enrollment files for school directory for 2015, 2016 and 2017 */
 proc sort data = enroll.Enroll_15_16 
-	out = schools_15_16_in; 
+	out = schools_15_16_in (rename = (ui_id=ui_id_n)); 
 	by ui_id; 
 run;
 
 proc sort data = enroll.Enroll_16_17 
-	out = schools_16_17_in; 
+	out = schools_16_17_in (rename = (ui_id=ui_id_n)); 
 	by ui_id; 
 run;
 
 proc sort data = enroll.Enroll_17_18 
-	out = schools_17_18_in; 
+	out = schools_17_18_in (rename = (ui_id=ui_id_n)); 
 	by ui_id; 
 run;
 
 /* Merge on location data */
 data schools_15_16;
-	merge schools_15_16_in (in=a) school_locations (in=b) ;
-	by ui_id;
-	if a;
+	merge schools_15_16_in (in=a) school_locations (in=b) closed_schools (in=c);
+	by ui_id_n;
+	if a or c;
 	
 	year = 2015;
 run;
 
 data schools_16_17;
-	merge schools_16_17_in (in=a) school_locations (in=b) ;
-	by ui_id;
-	if a;
+	merge schools_16_17_in (in=a) school_locations (in=b) closed_schools (in=c);
+	by ui_id_n;
+	if a or c;
 
-	if ui_id = 1042000 then do; x = -76.9901 ; y = 38.9024; end;
-	if ui_id = 1094702 then do; x = -77.0155929 ; y = 38.9203028; end;
-	if ui_id = 1637436 then do; x = -76.9329012 ; y = 38.9065625; end;
-	if ui_id = 2108500 then do; x= -77.0283249 ; y = 38.9405892; end;
-	if ui_id = 2108600 then do; x = -77.0414395 ; y = 38.8981258; end;
-	if ui_id = 2108700 then do; x = -76.9742016 ; y = 38.8556027; end;
-	if ui_id = 2108800 then do; x = -76.9986698 ; y = 38.9278646; end;
+	if ui_id_n = 1042000 then do; x = -76.9901 ; y = 38.9024; end;
+	if ui_id_n = 1094702 then do; x = -77.0155929 ; y = 38.9203028; end;
+	if ui_id_n = 1637436 then do; x = -76.9329012 ; y = 38.9065625; end;
+	if ui_id_n = 2108500 then do; x= -77.0283249 ; y = 38.9405892; end;
+	if ui_id_n = 2108600 then do; x = -77.0414395 ; y = 38.8981258; end;
+	if ui_id_n = 2108700 then do; x = -76.9742016 ; y = 38.8556027; end;
+	if ui_id_n = 2108800 then do; x = -76.9986698 ; y = 38.9278646; end;
 
 	year = 2016;
 run;
 
 data schools_17_18;
-	merge schools_17_18_in (in=a) school_locations (in=b) ;
-	by ui_id;
-	if a;
+	merge schools_17_18_in (in=a) school_locations (in=b) closed_schools (in=c) ;
+	by ui_id_n;
+	if a or c;
 
-	if ui_id = 1042000 then do; x = -76.9901 ; y = 38.9024; end;
-	if ui_id = 1094702 then do; x = -77.0155929 ; y = 38.9203028; end;
-	if ui_id = 1637436 then do; x = -76.9329012 ; y = 38.9065625; end;
-	if ui_id = 2108500 then do; x= -77.0283249 ; y = 38.9405892; end;
-	if ui_id = 2108600 then do; x = -77.0414395 ; y = 38.8981258; end;
-	if ui_id = 2108700 then do; x = -76.9742016 ; y = 38.8556027; end;
-	if ui_id = 2108800 then do; x = -76.9986698 ; y = 38.9278646; end;
-	if ui_id = 2108701 then do x = -76.9404947; y = 38.8700043; end;
-	if ui_id = 2108900 then do; x = -77.0360009 ; y = 38.9260056; end;
+	if ui_id_n = 1042000 then do; x = -76.9901 ; y = 38.9024; end;
+	if ui_id_n = 1094702 then do; x = -77.0155929 ; y = 38.9203028; end;
+	if ui_id_n = 1637436 then do; x = -76.9329012 ; y = 38.9065625; end;
+	if ui_id_n = 2108500 then do; x= -77.0283249 ; y = 38.9405892; end;
+	if ui_id_n = 2108600 then do; x = -77.0414395 ; y = 38.8981258; end;
+	if ui_id_n = 2108700 then do; x = -76.9742016 ; y = 38.8556027; end;
+	if ui_id_n = 2108800 then do; x = -76.9986698 ; y = 38.9278646; end;
+	if ui_id_n = 2108701 then do x = -76.9404947; y = 38.8700043; end;
+	if ui_id_n = 2108900 then do; x = -77.0360009 ; y = 38.9260056; end;
 
 	year = 2017;
 run;
@@ -107,10 +121,12 @@ data schools_15_18;
 
 	aud = total;
 
-	ui_id_c = put(ui_id,z7.);
-	drop ui_id;
+	ui_id = put(ui_id_n,z7.);
+	drop ui_id_n;
 
-	rename School_Name = master_school_name;
+	if master_school_name = " " then do;
+		master_school_name = School_Name;
+	end;
 
 run;
 
@@ -156,7 +172,6 @@ data schools_15_18_geo;
 	set schools_15_18_join;
 
 	geoblk2010 = geoid10;
-	ui_id = ui_id_c;
 
 	%Block10_to_anc12;
 	%Block10_to_bpk;
