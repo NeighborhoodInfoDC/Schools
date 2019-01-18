@@ -7,7 +7,8 @@
  Version:  SAS 9.4
  Environment:  Local Windows session (desktop)
  
- Description:  Takes most recent master school file
+ Description:  Takes most recent master school file and adds 3 newest years
+			   of data to bring it up to date as of the 2017-18 school year. 
 
  Modifications:
 **************************************************************************/
@@ -78,7 +79,6 @@ data schools_16_17;
 	year = 2016;
 run;
 
-
 data schools_17_18;
 	merge schools_17_18_in (in=a) school_locations (in=b) ;
 	by ui_id;
@@ -148,6 +148,8 @@ data Schools_00_14_geo;
 	%Block00_to_tr10;
 	%Block00_to_vp12;
 	%Block00_to_ward12;
+
+	drop school_name;
 run;
 
 data schools_15_18_geo;
@@ -175,8 +177,31 @@ run;
 /* Combine old and new data together */
 data schools_00_18_combined;
 	set Schools_00_14_geo schools_15_18_geo;
+
+	label year = "Starting year of school year"
+		  geoblk2000 = "Full census block ID (2000): sscccttttttbbbb"
+		  GeoBlk2010 = "Full census block ID (2010): sscccttttttbbbb"
+		  aud = "Audited Enrollment"
+	;
 run;
 
 proc sort data = schools_00_18_combined;
 	by ui_id year;
 run;
+
+
+/* Finalize dataset */
+%Finalize_data_set( 
+  /** Finalize data set parameters **/
+  data=schools_00_18_combined,
+  out=msf_base,
+  outlib=schools,
+  label="Master School File, 2000-2018",
+  sortby=ui_id year,
+  /** Metadata parameters **/
+  restrictions=None,
+  revisions=%str(Updated through the 2017-18 school year),
+  /** File info parameters **/
+  printobs=10,
+  freqvars=dcps year Anc2012 bridgepk city cluster2017 Psa2012 stantoncommons Geo2000 Geo2010 VoterPre2012 Ward2012
+);
