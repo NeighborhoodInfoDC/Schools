@@ -24,8 +24,11 @@ libname enroll 'L:\Libraries\Schools\Data\Enrollment';
 data schools_00_14;
 	set old.Msf_final_00_14_flip;
 
+	if school_name = "CLOSED";
+	status = "CLOSED";
+
 	/* Keeping only the geoblk2000 geo var to add others back on later */
-	keep ui_id master_school_name dcps year school_name geoblk2000 aud; 
+	keep ui_id master_school_name dcps year school_name geoblk2000 aud status; 
 run;
 
 
@@ -184,7 +187,7 @@ data schools_15_18_geo;
 	%Block10_to_vp12;
 	%Block10_to_ward12;
 
-	keep ui_id master_school_name year dcps aud 
+	keep ui_id master_school_name year dcps aud status
 		 geoblk2010 Anc2012 bridgepk city cluster2017 Psa2012 stantoncommons Geo2000 Geo2010 VoterPre2012 Ward2012;
 run;
 
@@ -197,6 +200,7 @@ data schools_00_18_combined;
 		  geoblk2000 = "Full census block ID (2000): sscccttttttbbbb"
 		  GeoBlk2010 = "Full census block ID (2010): sscccttttttbbbb"
 		  aud = "Audited Enrollment"
+		  status = "School operating status"
 	;
 run;
 
