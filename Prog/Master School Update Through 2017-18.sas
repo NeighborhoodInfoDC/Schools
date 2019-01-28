@@ -30,7 +30,7 @@ data schools_00_14;
   if ui_id = '1021300' and year = 2014 and aud = 202 then delete;
 
 	/* Keeping only the geoblk2000 geo var to add others back on later */
-	keep ui_id master_school_name dcps year school_name geoblk2000 aud status adult_flag grade_max grade_min; 
+	keep ui_id master_school_name dcps year school_name geoblk2000 aud status adult_flag grade_max grade_min x_coord y_coord; 
 run;
 
 proc sort data=schools_00_14 nodupkey;
@@ -221,6 +221,9 @@ data schools_15_18_geo;
 	%Block10_to_ward02
 	%Block10_to_ward12;
 	%Block10_to_zip;
+
+	x_coord = x;
+	y_coord = y;
 
 	keep ui_id master_school_name year dcps aud status
 		 geoblk2010 Anc2012 bridgepk city cluster2017 Psa2012 stantoncommons Geo2000 Geo2010 VoterPre2012 Ward2012;
