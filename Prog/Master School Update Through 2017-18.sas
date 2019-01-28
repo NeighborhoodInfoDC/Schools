@@ -24,8 +24,7 @@ libname enroll 'L:\Libraries\Schools\Data\Enrollment';
 data schools_00_14;
 	set old.Msf_final_00_14_flip;
 
-	if school_name = "CLOSED";
-	status = "CLOSED";
+	if school_name = "CLOSED" then status = "CLOSED";
 
 	/* Keeping only the geoblk2000 geo var to add others back on later */
 	keep ui_id master_school_name dcps year school_name geoblk2000 aud status; 
