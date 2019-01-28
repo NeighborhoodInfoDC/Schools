@@ -91,6 +91,10 @@ data schools_16_17;
 	if ui_id_n = 2108700 then do; x = -76.9742016 ; y = 38.8556027; end;
 	if ui_id_n = 2108800 then do; x = -76.9986698 ; y = 38.9278646; end;
 
+	if school_name = "BRIDGES PCS" then ui_id_n = 2103300;
+	if school_name = "CESAR CHAVEZ PCS FOR PUBLIC POLICY - PARKSIDE MS" then ui_id_n = 2100304;
+	if school_name = "DC PREP PCS - ANACOSTIA CAMPUS" then ui_id_n = 2102404;
+
 	year = 2016;
 run;
 
@@ -109,6 +113,10 @@ data schools_17_18;
 	if ui_id_n = 2108701 then do x = -76.9404947; y = 38.8700043; end;
 	if ui_id_n = 2108900 then do; x = -77.0360009 ; y = 38.9260056; end;
 
+	if school_name = "BRIDGES PCS" then ui_id_n = 2103300;
+	if school_name = "CESAR CHAVEZ PCS FOR PUBLIC POLICY - PARKSIDE MS" then ui_id_n = 2100304;
+	if school_name = "DC PREP PCS - ANACOSTIA CAMPUS" then ui_id_n = 2102404;
+
 	year = 2017;
 run;
 
@@ -125,11 +133,13 @@ data schools_15_18;
 	ui_id = put(ui_id_n,z7.);
 	drop ui_id_n;
 
-	if master_school_name = " " then do;
+	if status = " " then do;
 		master_school_name = School_Name;
 	end;
 
 run;
+
+proc sort data = schools_15_18; by ui_id; run;
 
 
 /* Use GInside to geocode X/Y to block */
