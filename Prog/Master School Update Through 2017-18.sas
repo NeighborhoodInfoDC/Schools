@@ -30,7 +30,7 @@ data schools_00_14;
   if ui_id = '1021300' and year = 2014 and aud = 202 then delete;
 
 	/* Keeping only the geoblk2000 geo var to add others back on later */
-	keep ui_id master_school_name dcps year school_name geoblk2000 aud status; 
+	keep ui_id master_school_name dcps year school_name geoblk2000 aud status adult_flag grade_max grade_min; 
 run;
 
 proc sort data=schools_00_14 nodupkey;
@@ -82,6 +82,9 @@ data schools_15_16;
 	if a or c;
 	
 	year = 2015;
+
+	%minmaxgrades;
+
 run;
 
 data schools_16_17;
@@ -100,6 +103,8 @@ data schools_16_17;
 	if school_name = "BRIDGES PCS" then ui_id_n = 2103300;
 	if school_name = "CESAR CHAVEZ PCS FOR PUBLIC POLICY - PARKSIDE MS" then ui_id_n = 2100304;
 	if school_name = "DC PREP PCS - ANACOSTIA CAMPUS" then ui_id_n = 2102404;
+
+	%minmaxgrades;
 
 	year = 2016;
 run;
@@ -122,6 +127,8 @@ data schools_17_18;
 	if school_name = "BRIDGES PCS" then ui_id_n = 2103300;
 	if school_name = "CESAR CHAVEZ PCS FOR PUBLIC POLICY - PARKSIDE MS" then ui_id_n = 2100304;
 	if school_name = "DC PREP PCS - ANACOSTIA CAMPUS" then ui_id_n = 2102404;
+
+	%minmaxgrades;
 
 	year = 2017;
 run;
@@ -171,16 +178,23 @@ run;
 data Schools_00_14_geo;
 	set Schools_00_14;
 
+	%Block00_to_anc02;
 	%Block00_to_anc12;
 	%Block00_to_bpk;
 	%Block00_to_city;
+	%Block00_to_cluster00;
+	%Block00_to_cluster_tr00;
 	%Block00_to_cluster17;
+	%Block00_to_eor;
+	%Block00_to_psa04;
 	%Block00_to_psa12;
 	%Block00_to_stantoncommons;
 	%Block00_to_tr00;
 	%Block00_to_tr10;
 	%Block00_to_vp12;
+	%Block00_to_ward02
 	%Block00_to_ward12;
+	%Block00_to_zip;
 
 	drop school_name;
 run;
@@ -190,16 +204,23 @@ data schools_15_18_geo;
 
 	geoblk2010 = geoid10;
 
+	%Block10_to_anc02;
 	%Block10_to_anc12;
 	%Block10_to_bpk;
 	%Block10_to_city;
+	%Block10_to_cluster00;
+	%Block10_to_cluster_tr00;
 	%Block10_to_cluster17;
+	%Block10_to_eor;
+	%Block10_to_psa04;
 	%Block10_to_psa12;
 	%Block10_to_stantoncommons;
 	%Block10_to_tr00;
 	%Block10_to_tr10;
 	%Block10_to_vp12;
+	%Block10_to_ward02
 	%Block10_to_ward12;
+	%Block10_to_zip;
 
 	keep ui_id master_school_name year dcps aud status
 		 geoblk2010 Anc2012 bridgepk city cluster2017 Psa2012 stantoncommons Geo2000 Geo2010 VoterPre2012 Ward2012;
