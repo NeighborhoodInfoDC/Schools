@@ -26,10 +26,16 @@ data schools_00_14;
 
 	if school_name = "CLOSED" then status = "CLOSED";
 
+  /* Delete extraneous obs for BRIGHTWOOD ELEMENTARY SCHOOL */
+  if ui_id = '1021300' and year = 2014 and aud = 202 then delete;
+
 	/* Keeping only the geoblk2000 geo var to add others back on later */
 	keep ui_id master_school_name dcps year school_name geoblk2000 aud status; 
 run;
 
+proc sort data=schools_00_14 nodupkey;
+  by ui_id year;
+run;
 
 /* Use geographic data from 2015/16 file as key for 16/17 and 17/18 */
 data school_locations;
@@ -210,6 +216,10 @@ data schools_00_18_combined;
 		  aud = "Audited Enrollment"
 		  status = "School operating status"
 	;
+
+  informat _all_ ;
+  format ui_id ;
+  format dcps dyesno.;
 run;
 
 proc sort data = schools_00_18_combined;
@@ -232,3 +242,18 @@ run;
   printobs=10,
   freqvars=dcps year Anc2012 bridgepk city cluster2017 Psa2012 stantoncommons Geo2000 Geo2010 VoterPre2012 Ward2012
 );
+
+
+** Check for duplicate observations **;
+
+title2 'MSF should not have duplicate observations by UI_ID and YEAR';
+
+%Dup_check(
+  data=schools_00_18_combined,
+  by=ui_id year,
+  id=master_school_name aud
+)
+
+title2;
+
+run;
