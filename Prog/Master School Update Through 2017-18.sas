@@ -221,10 +221,10 @@ data schools_15_18_geo;
 	%Block10_to_ward12;
 	%Block10_to_zip;
 
-	x_coord = x;
-	y_coord = y;
+	lon = x;
+	lat = y;
 
-	keep ui_id master_school_name year dcps aud status School_Name x_coord y_coord
+	keep ui_id master_school_name year dcps aud status School_Name lat lon
 		 geoblk2010 Anc2012 bridgepk city cluster2017 Psa2012 stantoncommons Geo2000 Geo2010 VoterPre2012 Ward2012;
 run;
 
@@ -239,8 +239,10 @@ data schools_00_18_combined;
 		  aud = "Audited Enrollment"
 		  status = "School operating status"
 		  School_Name = "School name (legacy)"
-		  x_coord = "X coordinate"
-		  y_coord = "Y coordinate"
+		  x_coord = "X coordinate (MD state plane)"
+		  y_coord = "Y coordinate (MD state plane)"
+		  lat = "Latitude"
+		  lon = "Longitude"
 		  grade_min = "Lowest grade"
 		  grade_max = "Highest grade"
 		  adult_flag = "Adult enrollees flag"
