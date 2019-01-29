@@ -1,10 +1,10 @@
 option nofmterr;
-libname enroll "K:\Metro\PTatian\DCData\Libraries\Schools\Data\Enrollment";
+libname enroll "D:\DCData\Libraries\Schools\Data\Enrollment";
 
 /* Convert enrollment file for public use */
 
 data enrollment;
-	set enroll.allenrollment_1415;
+	set enroll.allenrollment_1718;
 	drop rep_0102 rep_0203 rep_0304 rep_0405 rep_0506 rep_0607 rep_0708 rep_0809 rep_0910 rep_1011 schooltype;
 	if grade = "K" then grade = "0";
 	if grade = "PK" then grade = "-1";
@@ -26,4 +26,4 @@ data enrollment_long2;
 	drop _NAME_ COL1;
 run;
 
-proc export data = enrollment_long2 outfile = "D:\DCData\Libraries\Schools\Data\enrollment_data_14_15.csv" replace; run;
+proc export data = enrollment_long2 outfile = "D:\DCData\Libraries\Schools\Data\Enrollment\enrollment_data_17_18.csv" replace; run;
