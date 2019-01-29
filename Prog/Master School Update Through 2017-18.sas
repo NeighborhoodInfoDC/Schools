@@ -224,7 +224,7 @@ data schools_15_18_geo;
 	lon = x;
 	lat = y;
 
-	keep ui_id master_school_name year dcps aud status School_Name lat lon
+	keep ui_id master_school_name year dcps aud status School_Name lat lon grade_min grade_max
 		 geoblk2010 Anc2012 bridgepk city cluster2017 Psa2012 stantoncommons Geo2000 Geo2010 VoterPre2012 Ward2012;
 run;
 
